@@ -7,9 +7,6 @@ Firstly extend  `AnnotatedAbstractVerticle` class or use direcly in your verticl
 ```java
 new EventAnnotationProcessor(vertx).process(this);
 ```
-if you extend `AnnotatedAbstractVerticle` class, then make sure you will call `super.start()`
-in your overriden `start` method .
-
 then annotate your event handling methods:
 
 ```java
