@@ -3,7 +3,7 @@ Simple utility classes for simple use of vertx eventbus.
 Supports vertx rx interfaces as well (both rxJava1 and rxJava2). 
 
 ### Use
-Firstly extend  `AnnotatedAbstractVerticle` class or use direcly in your verticle as:
+Firstly extend  `AnnotatedAbstractVerticle` class **or** use direcly in your verticle as:
 ```java
 new EventAnnotationProcessor(vertx).process(this);
 ```

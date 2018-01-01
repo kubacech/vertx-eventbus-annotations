@@ -12,15 +12,27 @@ public class TypedEventBus {
     private io.vertx.reactivex.core.eventbus.EventBus delegate;
 
     public TypedEventBus(io.vertx.core.Vertx vertx) {
-        this.delegate = new EventBus(vertx.eventBus());
+        this(vertx.eventBus());
     }
 
     public TypedEventBus(Vertx vertx) {
-        this.delegate = vertx.eventBus();
+        this(vertx.eventBus());
     }
 
     public TypedEventBus(io.vertx.rxjava.core.Vertx vertx) {
-        this.delegate = new EventBus(vertx.eventBus().getDelegate());
+        this(vertx.eventBus());
+    }
+
+    public TypedEventBus(io.vertx.core.eventbus.EventBus eventBus) {
+        this.delegate = new EventBus(eventBus);
+    }
+
+    public TypedEventBus(EventBus eventBus) {
+        this.delegate = eventBus;
+    }
+
+    public TypedEventBus(io.vertx.rxjava.core.eventbus.EventBus eventBus) {
+        this.delegate = new EventBus(eventBus.getDelegate());
     }
 
 
