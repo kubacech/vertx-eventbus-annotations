@@ -21,7 +21,6 @@ public class JacksonMessageCodec implements MessageCodec<Object, Object> {
     public Object decodeFromWire(int pos, Buffer buffer) {
         int _pos = pos;
 
-        // Length of JSON
         int classNameLength = buffer.getInt(_pos);
         int jsonLength = buffer.getInt(_pos+=4);
 

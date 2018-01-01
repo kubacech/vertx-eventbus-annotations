@@ -79,27 +79,16 @@ public class TypedEventBus {
                 .map(tMessage -> (T)tMessage.body());
     }
 
-    public <T> Single<T> askFor(Object message, DeliveryOptions opts, Class<T> returnType) {
+    public <T> Single<T> askFor(Object message, DeliveryOptions opts) {
         opts.setCodecName(JacksonMessageCodec.class.getName());
         return this.delegate.rxSend(message.getClass().getName(), message, opts)
-                .map(tMessage -> decodeResponse(tMessage, returnType));
+                .map(tMessage -> (T)tMessage.body());
     }
 
-    public <T> Single<T> askFor(String address, Object message, DeliveryOptions opts, Class<T> returnType) {
+    public <T> Single<T> askFor(String address, Object message, DeliveryOptions opts) {
         opts.setCodecName(JacksonMessageCodec.class.getName());
         return this.delegate.rxSend(address, message, opts)
-                .map(tMessage -> decodeResponse(tMessage, returnType));
-    }
-
-    private <T> T decodeResponse(Message<Object> responseMessage, Class<T> returnType) {
-        Object response = responseMessage.body();
-        if (response instanceof String) {
-            return Json.decodeValue((String) response, returnType);
-        }
-        if (response.getClass().equals(returnType)) {
-            return (T)response;
-        }
-        throw new IllegalArgumentException("Cannot decode return type of " + response.getClass().getName());
+                .map(tMessage -> (T)tMessage.body());
     }
 
     private DeliveryOptions deliveryOpts() {
