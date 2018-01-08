@@ -1,8 +1,8 @@
 package com.github.kubacech.vertx.eventbus;
 
 import io.reactivex.Single;
+import io.vertx.core.Handler;
 import io.vertx.core.eventbus.DeliveryOptions;
-import io.vertx.core.json.Json;
 import io.vertx.reactivex.core.Vertx;
 import io.vertx.reactivex.core.eventbus.EventBus;
 import io.vertx.reactivex.core.eventbus.Message;
@@ -93,5 +93,16 @@ public class TypedEventBus {
 
     private DeliveryOptions deliveryOpts() {
         return new DeliveryOptions().setCodecName(JacksonMessageCodec.class.getName());
+    }
+
+    public <T> MessageConsumer<T> consumer(String address) {
+        return new MessageConsumer<T>(io.vertx.reactivex.core.eventbus.MessageConsumer.newInstance(
+                delegate.consumer(address).getDelegate(), io.vertx.lang.reactivex.TypeArg.unknown()));
+    }
+
+    public <T> MessageConsumer<T> consumer(String address, Handler<com.github.kubacech.vertx.eventbus.Message<T>> handler) {
+        MessageConsumer<T> ret = new MessageConsumer(delegate.consumer(address, (Handler<Message<T>>)
+                event -> handler.handle(new com.github.kubacech.vertx.eventbus.Message(event))));
+        return ret;
     }
 }

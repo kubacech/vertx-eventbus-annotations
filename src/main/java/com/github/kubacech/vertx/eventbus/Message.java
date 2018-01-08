@@ -52,4 +52,8 @@ public class Message<T> {
         delegate.fail(failureCode, message);
     }
 
+    public static <T> Message<T> newInstance(io.vertx.core.eventbus.Message arg) {
+        return arg != null ? new Message<T>(arg) : null;
+    }
+
 }
