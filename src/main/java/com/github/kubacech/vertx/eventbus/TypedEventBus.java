@@ -96,13 +96,12 @@ public class TypedEventBus {
     }
 
     public <T> MessageConsumer<T> consumer(String address) {
-        return new MessageConsumer<T>(io.vertx.reactivex.core.eventbus.MessageConsumer.newInstance(
+        return new MessageConsumer<>(io.vertx.reactivex.core.eventbus.MessageConsumer.newInstance(
                 delegate.consumer(address).getDelegate(), io.vertx.lang.reactivex.TypeArg.unknown()));
     }
 
     public <T> MessageConsumer<T> consumer(String address, Handler<com.github.kubacech.vertx.eventbus.Message<T>> handler) {
-        MessageConsumer<T> ret = new MessageConsumer(delegate.consumer(address, (Handler<Message<T>>)
+        return new MessageConsumer<>(delegate.consumer(address, (Handler<Message<T>>)
                 event -> handler.handle(new com.github.kubacech.vertx.eventbus.Message(event))));
-        return ret;
     }
 }

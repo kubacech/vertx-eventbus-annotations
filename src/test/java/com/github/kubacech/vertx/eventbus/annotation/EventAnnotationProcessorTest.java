@@ -39,81 +39,72 @@ public class EventAnnotationProcessorTest {
     public void messageWithJsonPayload(TestContext context) {
         Async async = context.async();
 
-        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId -> {
-            vertx.eventBus().send(MESSAGE_ADDRESS, new JsonObject());
-        });
+        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId ->
+                vertx.eventBus().send(MESSAGE_ADDRESS, new JsonObject()));
     }
 
     @Test
     public void justJsonPayload(TestContext context) {
         Async async = context.async();
 
-        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId -> {
-            vertx.eventBus().send(JSON_ADDRESS, new JsonObject());
-        });
+        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId ->
+                vertx.eventBus().send(JSON_ADDRESS, new JsonObject()));
     }
 
     @Test
     public void rxMessageWithJsonPayload(TestContext context) {
         Async async = context.async();
 
-        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId -> {
-            vertx.eventBus().send(RX_ADDRESS, new JsonObject());
-        });
+        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId ->
+                vertx.eventBus().send(RX_ADDRESS, new JsonObject()));
     }
 
     @Test
     public void reactivexMessageWithJsonPayload(TestContext context) {
         Async async = context.async();
 
-        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId -> {
-            vertx.eventBus().send(REACTIVEX_ADDRESS, new JsonObject());
-        });
+        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId ->
+                vertx.eventBus().send(REACTIVEX_ADDRESS, new JsonObject()));
     }
 
     @Test
     public void customKubacechMessageWithJsonPayload(TestContext context) {
         Async async = context.async();
 
-        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId -> {
-            vertx.eventBus().send(CUSTOM_KUBACECH_ADDRESS, new JsonObject());
-        });
+        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId ->
+                vertx.eventBus().send(CUSTOM_KUBACECH_ADDRESS, new JsonObject()));
     }
 
     @Test
     public void eventAnnotationSpecified(TestContext context) {
         Async async = context.async();
 
-        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId -> {
-            typedEventBus.send(new TestMessageType1());
-        });
+        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId ->
+                typedEventBus.send(new TestMessageType1()));
     }
 
     @Test
     public void eventAnnotationSpecifiedMessageParametrized(TestContext context) {
         Async async = context.async();
 
-        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId -> {
-            typedEventBus.send(new TestMessageType2());
-        });
+        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId ->
+                typedEventBus.send(new TestMessageType2()));
     }
 
     @Test
     public void eventAnnotationAuto(TestContext context) {
         Async async = context.async();
 
-        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId -> {
-            typedEventBus.send(new TestMessageType3());
-        });
+        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId ->
+                typedEventBus.send(new TestMessageType3()));
     }
 
     @Test
     public void eventAnnotationAutoParametrizedMessage(TestContext context) {
         Async async = context.async();
 
-        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId -> {
-            typedEventBus.send(new TestMessageType4());
-        });
+        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId ->
+                typedEventBus.send(new TestMessageType4()));
     }
 
     class TestAnnotatedVerticle extends AnnotatedAbstractVerticle {

@@ -33,13 +33,13 @@ You can use `publish`, `send` (you know these) and `askFor` methods. Use `askFor
 return object, but not Message object. Otherwise works same as `send`.
 
 ```java
-Single<ResponseType> = eventBus().askFor("address", new JsonObject());
+Single<ResponseType> resp = eventBus().askFor("address", new JsonObject());
   
 //or use your type as your event body
-Single<ResponseType> = eventBus().askFor("address", new ParameterType());
+Single<ResponseType> resp = eventBus().askFor("address", new ParameterType());
   
 //or again use directly event
-Single<ResponseType> = eventBus().askFor(new ParameterType());
+Single<ResponseType> resp = eventBus().askFor(new ParameterType());
 ```
 
 ### Message

@@ -16,11 +16,11 @@ public class Message<T> {
     }
 
     public Message(io.vertx.core.eventbus.Message message) {
-        this.delegate = new io.vertx.reactivex.core.eventbus.Message<T>(message);
+        this.delegate = new io.vertx.reactivex.core.eventbus.Message<>(message);
     }
 
     public Message(io.vertx.rxjava.core.eventbus.Message message) {
-        this.delegate = new io.vertx.reactivex.core.eventbus.Message<T>(message.getDelegate());
+        this.delegate = new io.vertx.reactivex.core.eventbus.Message<>(message.getDelegate());
     }
 
     public String address() {
@@ -53,7 +53,7 @@ public class Message<T> {
     }
 
     public static <T> Message<T> newInstance(io.vertx.core.eventbus.Message arg) {
-        return arg != null ? new Message<T>(arg) : null;
+        return arg != null ? new Message<>(arg) : null;
     }
 
 }

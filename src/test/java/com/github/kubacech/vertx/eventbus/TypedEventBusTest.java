@@ -40,27 +40,24 @@ public class TypedEventBusTest {
     public void justTypedPayload(TestContext context) {
         Async async = context.async();
 
-        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId -> {
-            eventBus.send(TYPED_ADDRESS, testMessage());
-        });
+        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async),
+                deployId -> eventBus.send(TYPED_ADDRESS, testMessage()));
     }
 
     @Test
     public void messageWithTypedPayload(TestContext context) {
         Async async = context.async();
 
-        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId -> {
-            eventBus.send(PROJECT_MESSAGE_ADDRESS, testMessage());
-        });
+        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async),
+                deployId -> eventBus.send(PROJECT_MESSAGE_ADDRESS, testMessage()));
     }
 
     @Test
     public void jsonPayload(TestContext context) {
         Async async = context.async();
 
-        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId -> {
-            eventBus.send(JSON_TYPE_ADDRESS, new JsonObject().put("test",123));
-        });
+        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId ->
+                eventBus.send(JSON_TYPE_ADDRESS, new JsonObject().put("test",123)));
     }
 
     @Test
@@ -68,14 +65,13 @@ public class TypedEventBusTest {
         Async async = context.async();
 
         TypedMessage tm = testMessage();
-        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId -> {
-            eventBus.<TypedMessage>askFor(PROJECT_MESSAGE_REPLY_ADDRESS, tm).subscribe(m ->{
-                assertNotNull(m);
-                assertNotNull(m.getCode());
-                assertEquals(m.getCode(), "reply");
-                async.complete();
-            });
-        });
+        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId ->
+                eventBus.<TypedMessage>askFor(PROJECT_MESSAGE_REPLY_ADDRESS, tm).subscribe(m -> {
+            assertNotNull(m);
+            assertNotNull(m.getCode());
+            assertEquals(m.getCode(), "reply");
+            async.complete();
+        }));
     }
 
     @Test
@@ -83,14 +79,13 @@ public class TypedEventBusTest {
         Async async = context.async();
 
         TypedMessage tm = testMessage();
-        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId -> {
-            eventBus.<TypedMessage>askFor(MESSAGE_REPLY_ADDRESS, tm).subscribe(m ->{
-                assertNotNull(m);
-                assertNotNull(m.getCode());
-                assertEquals(m.getCode(), "reply");
-                async.complete();
-            });
-        });
+        vertx.getDelegate().deployVerticle(new TestAnnotatedVerticle(async), deployId ->
+                eventBus.<TypedMessage>askFor(MESSAGE_REPLY_ADDRESS, tm).subscribe(m -> {
+            assertNotNull(m);
+            assertNotNull(m.getCode());
+            assertEquals(m.getCode(), "reply");
+            async.complete();
+        }));
     }
 
     @Test

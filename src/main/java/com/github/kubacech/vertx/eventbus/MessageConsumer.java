@@ -83,7 +83,6 @@ public class MessageConsumer<T> {
 
     /**
      * Unregisters the handler which created this registration
-     * @return
      */
     public Completable rxUnregister() {
         return delegate.rxUnregister();
